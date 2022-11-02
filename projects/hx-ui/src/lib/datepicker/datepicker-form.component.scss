@@ -1,43 +1,70 @@
-@import "datepicker-variables";
+@import '~@hxui/css/static/static/scss/variables';
+@import 'datepicker-variables';
 
 .hxa-datepicker {
-    &-form {
-        position: relative;
-        max-width: $hx-datepicker-calendar-width;
+  &-form {
+    position: relative;
+    max-width: $hx-datepicker-calendar-width;
+  }
+
+  &-control {
+    margin: 0;
+  }
+
+  &-calendar {
+    position: absolute;
+    z-index: 99;
+    left: 0;
+    max-width: $hx-datepicker-calendar-width;
+    &-top {
+      bottom: 100%;
     }
 
-    &-control {
-        margin: 0;
+    &-bottom {
+      top: 70%;
     }
-
-    &-calendar {
-        position: absolute;
-        z-index: 99;
-        left: 0;
-        max-width: $hx-datepicker-calendar-width;
-        &-top {
-            bottom: 100%;
-        }
-
-        &-bottom {
-            top: 70%;
-        }
-        & hxa-datepicker {
-          max-width: $hx-datepicker-calendar-width;
-        }
+    & hxa-datepicker {
+      max-width: $hx-datepicker-calendar-width;
     }
+  }
 
-    &-help {
-        font-size: .75rem;
-        margin-top: .25rem;
-        color: #63605f;
+  &-help {
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+    color: #63605f;
+  }
+
+  &__button {
+    position: absolute;
+    top: 0.5rem;
+    padding: 0;
+    z-index: 1;
+    background-color: unset;
+    border: none;
+    outline-color: $hx-color-primary;
+
+    &.left {
+      left: 0;
     }
+    &.right {
+      right: 0;
+    }
+    // input styling with leading icon - adapted from hxui/css for a11y nuance here
+    + .hx-input-control {
+      .hx-input {
+        padding-left: 1.8rem;
+      }
+      .hx-label {
+        margin-left: 1.8rem;
+      }
+    }
+  }
 }
 
 .hxa-datepicker-form input[readonly] ~ .hx-label {
-    top: -.5rem;
-    font-size: .75rem;
-    color: #41b987;
+  top: -0.5rem;
+  font-size: 0.75rem;
+  color: #41b987;
 }
 hxa-datepicker {
   border: 1px lightgray solid;
