@@ -1,9 +1,15 @@
 <div class="hx-input-group hxa-datepicker-form">
-  <i
-    class="{{ icon }}"
-    *ngIf="iconPlacement === 'left'"
+  <button
+    type="button"
+    aria-label="Open datepicker"
+    class="hxa-datepicker__button left"
     (click)="onFocused($event)"
-  ></i>
+    *ngIf="iconPlacement === 'left'"
+    tabindex="0"
+  >
+    <i class="{{ icon }}"></i>
+  </button>
+
   <div
     class="hx-input-control hxa-datepicker-control"
     [ngClass]="{
@@ -15,6 +21,8 @@
     <input
       class="hx-input"
       type="text"
+      [attr.aria-label]="placeholder"
+      [title]="helpText"
       #datePickerForm="ngModel"
       hxaTextInput
       [required]="required ? true : null"
@@ -22,7 +30,6 @@
       [readonly]="readonly ? true : null"
       [ngModel]="date | date: dateFormat"
       (change)="onChange($event)"
-      (focus)="onFocused($event)"
       (keydown.Tab)="onTab($event)"
       [mask]="maskPattern"
       [clearIfNotMatch]="true"
@@ -32,9 +39,15 @@
     </label>
     <div class="hx-help">{{ helpText }}</div>
   </div>
-  <i
-    class="{{ icon }} has-pointer"
-    *ngIf="iconPlacement === 'right'"
+
+  <button
+    type="button"
+    aria-label="Open datepicker"
+    class="hxa-datepicker__button right"
     (click)="onFocused($event)"
-  ></i>
+    *ngIf="iconPlacement === 'right'"
+    tabindex="0"
+  >
+    <i class="{{ icon }}"></i>
+  </button>
 </div>
