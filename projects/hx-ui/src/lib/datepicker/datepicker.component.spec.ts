@@ -1,16 +1,16 @@
-import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { DatepickerComponent } from './datepicker.component';
-import { DatepickerFormComponent } from './datepicker-form.component';
-import { PositioningService } from '../positioning/positioning.service';
-import { FormsModule } from '@angular/forms';
-import { TabsModule } from '../tabs/tabs.module';
-import { DatepickerIntervalComponent } from './datepicker-interval.component';
-import { DatepickerConfig } from './datepicker.config';
-import { TabsetConfig } from '../tabs/tabset.config';
-import { ElementRef, Injectable, ViewContainerRef } from '@angular/core';
 import { Overlay } from '@angular/cdk/overlay';
+import { ElementRef, Injectable, ViewContainerRef } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
+import { PositioningService } from '../positioning/positioning.service';
+import { TabsModule } from '../tabs/tabs.module';
+import { TabsetConfig } from '../tabs/tabset.config';
+import { DatepickerFormComponent } from './datepicker-form.component';
+import { DatepickerIntervalComponent } from './datepicker-interval.component';
+import { DatepickerComponent } from './datepicker.component';
+import { DatepickerConfig } from './datepicker.config';
 
 @Injectable()
 export class MockElementRef extends ElementRef {
@@ -28,27 +28,25 @@ describe('DatepickerComponent', () => {
   let component: DatepickerComponent;
   let fixture: ComponentFixture<DatepickerComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [FormsModule, TabsModule, NgxMaskModule],
-        declarations: [
-          DatepickerFormComponent,
-          DatepickerComponent,
-          DatepickerIntervalComponent
-        ],
-        providers: [
-          PositioningService,
-          DatepickerConfig,
-          TabsetConfig,
-          DatepickerFormComponent,
-          { provide: ElementRef, useValue: new MockElementRef(null) },
-          ViewContainerRef,
-          Overlay
-        ]
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [FormsModule, TabsModule, NgxMaskModule],
+      declarations: [
+        DatepickerFormComponent,
+        DatepickerComponent,
+        DatepickerIntervalComponent
+      ],
+      providers: [
+        PositioningService,
+        DatepickerConfig,
+        TabsetConfig,
+        DatepickerFormComponent,
+        { provide: ElementRef, useValue: new MockElementRef(null) },
+        ViewContainerRef,
+        Overlay
+      ]
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DatepickerComponent);
@@ -73,13 +71,13 @@ describe('DatepickerComponent', () => {
 
     it('should populate component.days[] starting from the 1st of the month minus how many days of the week away from monday', () => {
       // Days of the week that the 1st of some month is on
-      let Monday: Date = new Date('October 2018');
-      let Tuesday: Date = new Date('May 2018');
-      let Wednesday: Date = new Date('August 2018');
-      let Thursday: Date = new Date('February 2018');
-      let Friday: Date = new Date('June 2018');
-      let Saturday: Date = new Date('September 2018');
-      let Sunday: Date = new Date('April 2018');
+      const Monday: Date = new Date('October 2018');
+      const Tuesday: Date = new Date('May 2018');
+      const Wednesday: Date = new Date('August 2018');
+      const Thursday: Date = new Date('February 2018');
+      const Friday: Date = new Date('June 2018');
+      const Saturday: Date = new Date('September 2018');
+      const Sunday: Date = new Date('April 2018');
 
       // Confirm that the first element in the days[] array is Monday, possibly from the previous month
       confirmRenderCalendarStartDate(
@@ -114,7 +112,7 @@ describe('DatepickerComponent', () => {
 
   describe('previousMonth', () => {
     it('should set component.viewDate to the previous month', () => {
-      let previousMonth = new Date('June 2018');
+      const previousMonth = new Date('June 2018');
       component.viewDate = new Date('July 2018');
 
       component.previousMonth();
@@ -125,7 +123,7 @@ describe('DatepickerComponent', () => {
 
   describe('nextMonth', () => {
     it('should set component.viewDate to the next month', () => {
-      let nextMonth = new Date('July 2018');
+      const nextMonth = new Date('July 2018');
       component.viewDate = new Date('June 2018');
 
       component.nextMonth();
