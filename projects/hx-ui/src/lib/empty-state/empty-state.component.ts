@@ -51,7 +51,7 @@ export class EmptyStateComponent implements OnInit {
 
   private buildMsgElement(): void {
     const isValidHeadingLevel = this.headingLevel && this.headingLevel < 7;
-    const msgClasses = 'class="is-lighter"';
+    const msgClasses = 'class="is-light"';
 
     this.msgElement = isValidHeadingLevel
       ? `<h${this.headingLevel} ${msgClasses}>${this.msg}</h${this.headingLevel}>`
