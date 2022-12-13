@@ -1,23 +1,25 @@
 import {
-  ApplicationRef, 
-  Component, 
-  ComponentFactoryResolver, 
-  ElementRef, 
-  Injector, 
-  NgZone,
-  OnInit,
-} from '@angular/core';
-import {
-  trigger,
+  animate,
   state,
   style,
-  animate,
-  transition
+  transition,
+  trigger
 } from '@angular/animations';
-import { ComponentPortal, DomPortalOutlet} from '@angular/cdk/portal';
-import {Subject} from 'rxjs';
-import {InspectorSize} from './inspector-size.enum';
-import {InspectorLocation} from "./inspector-location.enum";
+import { ComponentPortal, DomPortalOutlet } from '@angular/cdk/portal';
+import {
+  AfterViewInit,
+  ApplicationRef,
+  Component,
+  ComponentFactoryResolver,
+  ElementRef,
+  Injector,
+  NgZone,
+  OnInit,
+  ViewChild
+} from '@angular/core';
+import { Subject } from 'rxjs';
+import { InspectorLocation } from './inspector-location.enum';
+import { InspectorSize } from './inspector-size.enum';
 
 @Component({
   selector: 'hxa-inspector',
@@ -25,46 +27,70 @@ import {InspectorLocation} from "./inspector-location.enum";
   styleUrls: ['./inspector.component.scss'],
   animations: [
     trigger('slideFromRight', [
-      state('slideOut', style({
-        transform: 'translate3d(100%, 0, 0)',
-      })),
-      state('slideIn',   style({
-        transform: 'translate3d(0, 0, 0)'
-      })),
+      state(
+        'slideOut',
+        style({
+          transform: 'translate3d(100%, 0, 0)'
+        })
+      ),
+      state(
+        'slideIn',
+        style({
+          transform: 'translate3d(0, 0, 0)'
+        })
+      ),
       transition('slideOut => slideIn', animate('200ms ease-in')),
       transition('slideIn => slideOut', animate('200ms ease-out')),
       transition('void => *', [
         style({ transform: 'translate3d(100%, 0, 0)' }),
         animate('200ms ease-in')
-      ]),
+      ])
     ]),
     trigger('slideFromLeft', [
-      state('slideOut', style({
-        transform: 'translateX(-100%)'
-      })),
-      state('slideIn',   style({
-        transform: 'translateX(0)'
-      })),
+      state(
+        'slideOut',
+        style({
+          transform: 'translateX(-100%)'
+        })
+      ),
+      state(
+        'slideIn',
+        style({
+          transform: 'translateX(0)'
+        })
+      ),
       transition('slideOut => slideIn', animate('200ms ease-in')),
       transition('slideIn => slideOut', animate('200ms ease-out')),
       transition('void => *', [
-        style({transform: 'translateX(-100%)'}),
+        style({ transform: 'translateX(-100%)' }),
         animate('200ms ease-in')
-      ]),
+      ])
     ]),
     trigger('sizeFromRight', [
-      state('small', style({
-        width: '37rem'
-      })),
-      state('large',   style({
-        width: '90vw'
-      })),
-      state('fullWidth',   style({
-        width: '100vw'
-      })),
-      state('offsetWidth',   style({
-        width: '47rem'
-      })),
+      state(
+        'small',
+        style({
+          width: '37rem'
+        })
+      ),
+      state(
+        'large',
+        style({
+          width: '90vw'
+        })
+      ),
+      state(
+        'fullWidth',
+        style({
+          width: '100vw'
+        })
+      ),
+      state(
+        'offsetWidth',
+        style({
+          width: '47rem'
+        })
+      ),
       transition('small => large', animate('200ms ease-in')),
       transition('large => small', animate('200ms ease-out')),
       transition('small => fullWidth', animate('200ms ease-out')),
@@ -73,24 +99,33 @@ import {InspectorLocation} from "./inspector-location.enum";
       transition('fullWidth => large', animate('200ms ease-in')),
       transition('small => offsetWidth', animate('200ms ease-out')),
       transition('offsetWidth => small', animate('200ms ease-in')),
-      transition('void => *', [
-        style({ width: '0'}),
-        animate('200ms ease-in')
-      ]),
+      transition('void => *', [style({ width: '0' }), animate('200ms ease-in')])
     ]),
     trigger('sizeFromLeft', [
-      state('small', style({
-        width: '37rem'
-      })),
-      state('large',   style({
-        width: '90vw'
-      })),
-      state('fullWidth',   style({
-        width: '100vw'
-      })),
-      state('offsetWidth',   style({
-        width: '47rem'
-      })),
+      state(
+        'small',
+        style({
+          width: '37rem'
+        })
+      ),
+      state(
+        'large',
+        style({
+          width: '90vw'
+        })
+      ),
+      state(
+        'fullWidth',
+        style({
+          width: '100vw'
+        })
+      ),
+      state(
+        'offsetWidth',
+        style({
+          width: '47rem'
+        })
+      ),
       transition('small => large', animate('200ms ease-in')),
       transition('large => small', animate('200ms ease-out')),
       transition('small => fullWidth', animate('200ms ease-out')),
@@ -100,14 +135,13 @@ import {InspectorLocation} from "./inspector-location.enum";
       transition('small => offsetWidth', animate('200ms ease-out')),
       transition('offsetWidth => small', animate('200ms ease-in')),
       transition('void => *', [
-        style({ width: '37rem'}),
+        style({ width: '37rem' }),
         animate('200ms ease-in')
-      ]),
+      ])
     ])
   ]
 })
-export class InspectorComponent implements OnInit {
-
+export class InspectorComponent implements OnInit, AfterViewInit {
   onSlideInComplete$ = new Subject<boolean>();
   onSlideInStart$ = new Subject<boolean>();
   onSlideOutComplete$ = new Subject<boolean>();
@@ -115,7 +149,7 @@ export class InspectorComponent implements OnInit {
   onResizeComplete$ = new Subject<InspectorSize>();
   onBackDropClick$ = new Subject<boolean>();
   componentPortal: ComponentPortal<any>;
-  parameters: Object = {};
+  parameters: any = {};
   state = 'slideOut';
   size = 'small';
   sizes = ['small', 'large', 'offsetWidth', 'fullWidth'];
@@ -132,49 +166,67 @@ export class InspectorComponent implements OnInit {
 
   public InspectorLocation = InspectorLocation;
 
+  @ViewChild('closeLeft', { static: false }) closeLeft: ElementRef;
+  @ViewChild('closeRight', { static: false }) closeRight: ElementRef;
+
   private portalHost: DomPortalOutlet;
   private animationCount = 0;
 
-  constructor(private elementRef: ElementRef,
-              private zone: NgZone,
-              private componentFactoryResolver: ComponentFactoryResolver,
-              private injector: Injector,
-              private appRef: ApplicationRef) { }
+  constructor(
+    private elementRef: ElementRef,
+    private zone: NgZone,
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private injector: Injector,
+    private appRef: ApplicationRef
+  ) {}
 
-  ngOnInit() {
-    setTimeout(()=> {
-      this.attachComponent();
-      this.slideIn();
-    })
+  ngAfterViewInit(): void {
+    if (
+      this.location === InspectorLocation.Left &&
+      this.closeLeft?.nativeElement
+    ) {
+      this.closeLeft.nativeElement.focus();
+    }
+    if (
+      this.location === InspectorLocation.Right &&
+      this.closeRight?.nativeElement
+    ) {
+      this.closeRight.nativeElement.focus();
+    }
   }
 
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.attachComponent();
+      this.slideIn();
+    });
+  }
 
   close = () => {
     this.slideOut();
-  }
+  };
 
   slideIn = () => {
     this.state = 'slideIn';
-  }
+  };
 
   slideOut = () => {
     this.state = 'slideOut';
-  }
+  };
 
   resize(size: InspectorSize) {
     this.size = this.sizes[size];
   }
 
-  slideStart = ($event) => {
+  slideStart = $event => {
     if ($event.fromState === 'void') {
       this.onSlideInStart$.next(true);
     } else {
       this.onSlideOutStart$.next(true);
     }
-  }
+  };
 
-  slideDone = ($event) => {
-
+  slideDone = $event => {
     // initial slide in done
     if ($event.fromState === 'void') {
       if (this.animationCount < 1) {
@@ -189,10 +241,9 @@ export class InspectorComponent implements OnInit {
       this.onSlideOutComplete$.next(true);
       this.detachComponent();
     }
-  }
+  };
 
-  sizeDone = ($event) => {
-
+  sizeDone = $event => {
     // initial size animation
     if ($event.fromState === 'void') {
       if (this.animationCount < 1) {
@@ -203,16 +254,20 @@ export class InspectorComponent implements OnInit {
     }
 
     // size done
-    if (($event.fromState === 'small' && $event.toState === 'large') || ($event.fromState === 'large' && $event.toState === 'small')) {
-      this.onResizeComplete$.next(($event.toState === 'large') ? InspectorSize.Large : InspectorSize.Small);
+    if (
+      ($event.fromState === 'small' && $event.toState === 'large') ||
+      ($event.fromState === 'large' && $event.toState === 'small')
+    ) {
+      this.onResizeComplete$.next(
+        $event.toState === 'large' ? InspectorSize.Large : InspectorSize.Small
+      );
     }
-  }
+  };
 
   allAnimationsDone() {
     this.animationCount = 0;
     this.onSlideInComplete$.next(true);
   }
-
 
   attachComponent() {
     // Create a portalHost from a DOM element
@@ -224,17 +279,17 @@ export class InspectorComponent implements OnInit {
     );
 
     // Attach portal to host
-    const componentRef =  this.portalHost.attach(this.componentPortal);
+    const componentRef = this.portalHost.attach(this.componentPortal);
 
     // pass the @Input parameters to the instance
     Object.assign(componentRef.instance, this.parameters);
   }
 
-  detachComponent(){
+  detachComponent() {
     this.portalHost.detach();
   }
 
-  onBackdropClick(){
+  onBackdropClick() {
     this.onBackDropClick$.next(true);
   }
 }
