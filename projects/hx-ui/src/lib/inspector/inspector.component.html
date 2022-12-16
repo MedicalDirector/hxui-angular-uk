@@ -1,5 +1,5 @@
-<div 
-  class="hxa-inspector" 
+<div
+  class="hxa-inspector"
   *ngIf="location === InspectorLocation.Right"
   [@slideFromRight]="state"
   (@slideFromRight.done)="slideDone($event)"
@@ -7,11 +7,17 @@
   [@sizeFromRight]="size"
   (@sizeFromRight.done)="sizeDone($event)"
 >
-  <div class="portalHost"></div>
-  <a class="close right" [ngClass]="{ 'hide': hideClose }" *ngIf="hasClose" (click)="close()"></a>
+  <div class="portalHost" cdkFocusTrap></div>
+  <a
+    #closeRight
+    class="close right"
+    [ngClass]="{ 'hide': hideClose }"
+    *ngIf="hasClose"
+    (click)="close()"
+  ></a>
 </div>
-<div 
-  class="hxa-inspector" 
+<div
+  class="hxa-inspector"
   *ngIf="location === InspectorLocation.Left"
   [@slideFromLeft]="state"
   (@slideFromLeft.done)="slideDone($event)"
@@ -19,6 +25,12 @@
   [@sizeFromLeft]="size"
   (@sizeFromLeft.done)="sizeDone($event)"
 >
-  <div class="portalHost"></div>
-  <a class="close left" [ngClass]="{ 'hide': hideClose }" *ngIf="hasClose" (click)="close()"></a>
+  <div class="portalHost" cdkFocusTrap></div>
+  <a
+    #closeLeft
+    class="close left"
+    [ngClass]="{ 'hide': hideClose }"
+    *ngIf="hasClose"
+    (click)="close()"
+  ></a>
 </div>

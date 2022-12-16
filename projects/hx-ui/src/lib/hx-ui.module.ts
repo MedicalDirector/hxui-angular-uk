@@ -1,3 +1,4 @@
+import { A11yModule } from '@angular/cdk/a11y';
 import { DatePipe } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
@@ -54,6 +55,7 @@ export const mask_options: Partial<IConfig> | (() => Partial<IConfig>) = {};
     InspectorModule.forRoot(),
     LineClampModule,
     TimepickerModule,
+    A11yModule,
     ToastrModule.forRoot({
       toastComponent: HxaToastrComponent,
       toastClass: 'hxa-toastr',

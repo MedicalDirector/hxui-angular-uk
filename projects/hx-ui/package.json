@@ -1,14 +1,14 @@
 {
   "name": "@hxui/angular",
-  "version": "11.2.1",
+  "version": "11.3.0-alpha.0",
   "license": "MIT",
   "private": false,
   "author": "Design @ MD <design@medicaldirector.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MedicalDirector/hxui-angular.git"
+    "url": "https://github.com/MedicalDirector/hxui-angular-uk.git"
   },
-  "bugs": "https://github.com/MedicalDirector/hxui-angular/issues",
+  "bugs": "https://github.com/MedicalDirector/hxui-angular-uk/issues",
   "dependencies": {
     "tslib": "^2.0.0"
   },

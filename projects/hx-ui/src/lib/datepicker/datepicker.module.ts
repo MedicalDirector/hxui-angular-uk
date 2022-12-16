@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
 import { TabsModule } from '../tabs/tabs.module';
 import { TextInputModule } from '../text-input/text-input.module';
@@ -13,6 +13,7 @@ import { DatepickerConfig } from './datepicker.config';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     TabsModule,
     NgxMaskModule,
     TextInputModule
